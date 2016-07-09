@@ -1,11 +1,6 @@
 import solid as s
 import solid.utils as u
 
-# final orientation mode, one of "default", "explode", "print"
-# orientation = 'default'
-orientation = 'explode'
-# orientation = 'print'
-
 # basic dimensions
 width = 83.0
 height = 30.0
@@ -226,16 +221,30 @@ body -= u.right(bolt1_x)(u.forward(bolt1_y)(bolt_body_hole))
 body -= u.right(bolt2_x)(u.forward(bolt2_y)(bolt_body_hole))
 body -= u.right(bolt3_x)(u.forward(bolt3_y)(bolt_body_hole))
 
-# orientation for printing
-if orientation == 'print':
-    body = s.rotate(a=[0, -90, 0])(body)
-    lid = u.forward(square_width)(u.up(height)(u.left(depth + height + 5)(
+
+def render(suffix, final):
+    suffix += '.scad'
+    s.scad_render_to_file(final, __file__.replace('.py', suffix))
+
+# rotate for printing
+render(
+    '-print-body',
+    s.rotate(a=[0, -90, 0])(body))
+render(
+    '-print-lid',
+    u.forward(square_width)(u.up(height)(u.left(depth + height + 5)(
         s.rotate(a=[180, 0, 0])(lid))
     ))
+)
 
-if orientation == 'explode':
-    lid = u.up(outer_rad * 3)(lid)
+# explode for viewing inside
+render(
+    '-explode',
+    body + u.up(outer_rad * 3)(lid)
+)
 
-final = body + lid
-
-s.scad_render_to_file(final, __file__.replace('.py', '.scad'))
+# final assembled shape
+render(
+    '',
+    body + lid
+)
