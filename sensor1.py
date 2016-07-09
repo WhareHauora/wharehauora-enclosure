@@ -17,9 +17,8 @@ bolt_hole_clear = 3.0
 bolt_hole_tapped = 2.5  # self-tapping into plastic
 bolt_head_dia = 6.0  # 5 plus clearance
 bolt_lid_height = 7.0  # underside of lid to top of shield board
-bolt_lid_dia = 6.0
-bolt_body_dia1 = 10.0
-bolt_body_dia2 = 5.0
+bolt_dia1 = 10.0
+bolt_dia2 = 5.0
 bolt1_x, bolt1_y = 6.9, 45.7
 bolt2_x, bolt2_y = 56.8, 2.5
 bolt3_x, bolt3_y = 58.1, 50.8
@@ -174,7 +173,7 @@ lid += u.forward(square_width)(u.right(depth)(u.up(outer_rad)(
 
 # lid bolt mount
 bolt_lid = u.up(height - bolt_lid_height - wall_width)(
-    s.cylinder(d=bolt_lid_dia, h=bolt_lid_height + wall_width,
+    s.cylinder(d1=bolt_dia2, d2=bolt_dia1, h=bolt_lid_height + wall_width,
                segments=segments) -
     s.cylinder(d=bolt_hole_tapped, h=bolt_lid_height + 1.0, segments=segments)
 )
@@ -202,7 +201,8 @@ lid -= sensor_hole
 
 # body subtraction for lid bolt mount
 bolt_lid = u.up(height - bolt_lid_height - wall_width - nt)(
-    s.cylinder(d=bolt_lid_dia + hnt, h=bolt_lid_height + wall_width + nt,
+    s.cylinder(d1=bolt_dia2 + hnt, d2=bolt_dia1 + hnt,
+               h=bolt_lid_height + wall_width + nt,
                segments=segments)
 )
 body -= u.right(bolt2_x)(u.forward(bolt2_y)(bolt_lid))
@@ -210,7 +210,7 @@ body -= u.right(bolt3_x)(u.forward(bolt3_y)(bolt_lid))
 
 # body bolt mount
 bolt_body = u.up(wall_width)(
-    s.cylinder(d1=bolt_body_dia1, d2=bolt_body_dia2, h=bolt_body_height,
+    s.cylinder(d1=bolt_dia1, d2=bolt_dia2, h=bolt_body_height,
                segments=segments)
 )
 body += u.right(bolt1_x)(u.forward(bolt1_y)(bolt_body))
