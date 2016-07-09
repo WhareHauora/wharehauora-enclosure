@@ -26,7 +26,7 @@ power_y, power_z = 45.8, 16.5
 power_dia = 16.0
 usb_y, usb_z = 14.3, 11.0
 usb_dia = 12.0
-sensor_x, sensor_y = 58.1, 27.0
+sensor_x, sensor_y = 56.1, 27.0
 sensor_width = 18.0
 sensor_depth = 24.0
 # misc
