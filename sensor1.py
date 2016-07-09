@@ -43,6 +43,8 @@ inner_rad = outer_rad - wall_width
 inner_height = height - walls_width
 inner_depth = depth - walls_width
 bolt_body_height = inner_height - board_height - bolt_lid_height
+# lid depth goes as far as the end of the sensor hole
+lid_depth = depth - sensor_x + (sensor_depth / 2.0)
 
 square_width = width - height  # the width without the round edge
 hnt = nt / 2.0  # half nested tolerance
@@ -75,13 +77,14 @@ inner += u.forward(square_width)(u.up(inner_rad)(
 body -= u.right(wall_width)(u.up(wall_width)(inner))
 
 # subtract lid top nestle
-body -= u.right(half_wall_width)(u.up(height - half_wall_width)(
-    s.cube(size=[depth, square_width, half_wall_width])
+body -= u.right(depth - lid_depth + half_wall_width)(u.up(
+    height - half_wall_width)(
+        s.cube(size=[depth - lid_depth, square_width, half_wall_width])
 ))
-body -= u.forward(half_wall_width)(u.right(wall_width)(
+body -= u.forward(half_wall_width)(u.right(depth - lid_depth + wall_width)(
     u.up(height - wall_width)(
         s.cube(size=[
-            depth - wall_width,
+            depth - lid_depth - wall_width,
             square_width - wall_width,
             half_wall_width
         ])
@@ -112,20 +115,22 @@ body -= u.forward(square_width)(u.right(depth - half_wall_width)(
 ))
 
 # lid top
-lid = u.forward(hnt)(u.right(half_wall_width + hnt)(
+lid = u.forward(hnt)(u.right(depth - lid_depth + half_wall_width + hnt)(
     u.up(height - half_wall_width)(
-        s.cube(size=[depth - nt, square_width - nt, half_wall_width])
+        s.cube(size=[lid_depth - nt, square_width - nt, half_wall_width])
     )
 ))
-lid += u.forward(half_wall_width + hnt)(u.right(wall_width + hnt)(
-    u.up(height - wall_width)(
-        s.cube(size=[
-            depth - half_wall_width - nt,
-            square_width - wall_width - nt,
-            half_wall_width
-        ])
+lid += u.forward(half_wall_width + hnt)(u.right(
+    depth - lid_depth + wall_width + hnt)(
+        u.up(height - wall_width)(
+            s.cube(size=[
+                lid_depth - half_wall_width - nt,
+                square_width - wall_width - nt,
+                half_wall_width
+            ])
+        )
     )
-))
+)
 
 # lid side nestle
 lid += u.up(half_wall_width + hnt)(u.right(depth + hnt - half_wall_width)(
@@ -177,7 +182,7 @@ bolt_lid = u.up(height - bolt_lid_height - wall_width)(
                segments=segments) -
     s.cylinder(d=bolt_hole_tapped, h=bolt_lid_height + 1.0, segments=segments)
 )
-lid += u.right(bolt1_x)(u.forward(bolt1_y)(bolt_lid))
+body += u.right(bolt1_x)(u.forward(bolt1_y)(bolt_lid))
 lid += u.right(bolt2_x)(u.forward(bolt2_y)(bolt_lid))
 lid += u.right(bolt3_x)(u.forward(bolt3_y)(bolt_lid))
 
