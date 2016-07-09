@@ -7,7 +7,7 @@ include $(wildcard *.deps)
 	echo "s.scad_render_to_file(final, __file__.replace('.py', '.scad'))" >> $@
 
 %.scad: %.py
-	python $< > $@
+	python $<
 
 %.stl: %.scad
 	openscad -m make -o $@ -d $@.deps $<
