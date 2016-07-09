@@ -226,15 +226,13 @@ def render(suffix, final):
     suffix += '.scad'
     s.scad_render_to_file(final, __file__.replace('.py', suffix))
 
-# rotate for printing
+# rotate and split into 2 files for printing
 render(
     '-print-body',
     s.rotate(a=[0, -90, 0])(body))
 render(
     '-print-lid',
-    u.forward(square_width)(u.up(height)(u.left(depth + height + 5)(
-        s.rotate(a=[180, 0, 0])(lid))
-    ))
+    s.rotate(a=[0, 90, 0])(lid)
 )
 
 # explode for viewing inside
