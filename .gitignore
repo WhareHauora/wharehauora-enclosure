@@ -1,0 +1,6 @@
+*.gcode
+*.scad
+*.stl
+*.stl.deps
+*.x3g
+
