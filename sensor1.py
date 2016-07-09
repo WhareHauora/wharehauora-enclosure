@@ -6,7 +6,7 @@ width = 83.0
 height = 30.0
 depth = 75.0
 wall_width = 2.5
-nt = 0.25  # nestle tolerance, so body and lid fit together
+nt = 0.45  # nestle tolerance, so body and lid fit together
 
 # dimensions for M3 25mm bolts
 bolt_hole_clear = 3.0
