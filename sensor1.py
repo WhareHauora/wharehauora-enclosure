@@ -18,7 +18,7 @@ bolt_body_dia1 = 10.0
 bolt_body_dia2 = 5.0
 bolt_body_height = 6.0
 bolt1_x, bolt1_y = 6.9, 45.7
-bolt2_x, bolt2_y = 58.1, 2.5
+bolt2_x, bolt2_y = 56.8, 2.5
 bolt3_x, bolt3_y = 58.1, 50.8
 
 # dimensions for holes
