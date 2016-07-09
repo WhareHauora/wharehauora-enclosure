@@ -8,15 +8,18 @@ depth = 75.0
 wall_width = 2.5
 nt = 0.45  # nestle tolerance, so body and lid fit together
 
+# bottom of the Uno board to the top of the shield
+# taking no account of the components
+board_height = 15.0
+
 # dimensions for M3 25mm bolts
 bolt_hole_clear = 3.0
 bolt_hole_tapped = 2.5  # self-tapping into plastic
 bolt_head_dia = 6.0  # 5 plus clearance
-bolt_lid_height = 4.0
+bolt_lid_height = 4.0  # underside of lid to top of shield board
 bolt_lid_dia = 6.0
 bolt_body_dia1 = 10.0
 bolt_body_dia2 = 5.0
-bolt_body_height = 6.0
 bolt1_x, bolt1_y = 6.9, 45.7
 bolt2_x, bolt2_y = 56.8, 2.5
 bolt3_x, bolt3_y = 58.1, 50.8
@@ -29,6 +32,7 @@ usb_dia = 12.0
 sensor_x, sensor_y = 56.1, 27.0
 sensor_width = 18.0
 sensor_depth = 24.0
+
 # misc
 segments = 128
 
@@ -39,6 +43,8 @@ outer_rad = height / 2.0
 inner_rad = outer_rad - wall_width
 inner_height = height - walls_width
 inner_depth = depth - walls_width
+bolt_body_height = inner_height - board_height - bolt_lid_height
+
 square_width = width - height  # the width without the round edge
 hnt = nt / 2.0  # half nested tolerance
 
