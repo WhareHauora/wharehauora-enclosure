@@ -26,10 +26,10 @@ bolt2_x, bolt2_y = 56.8, 2.5
 bolt3_x, bolt3_y = 58.1, 50.8
 
 # dimensions for holes
-power_y, power_z = 45.8, 15.5
+power_y, power_z = 45.8, 14.5
 power_width = 12.0
 power_height = 12.0
-usb_y, usb_z = 14.3, 11.0
+usb_y, usb_z = 14.3, 10.0
 usb_width = 12.0
 usb_height = 9.0
 sensor_x, sensor_y = 56.1, 27.0
