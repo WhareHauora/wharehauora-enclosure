@@ -12,23 +12,24 @@ emboss_depth = 0.5  # logo emboss depth
 
 # board guide dimensions
 boards_height_inner = 10.5  # top of Uno to bottm of shield
+board_width = 54.0
 guide_z = 8.0
 guide1_y = 2.5
 guide2_y = 50.8
 guide_depth = 8.0
 guide_width = 3.0
-lid_guide1_z = 6.0
-lid_guide2_z = 20.0
+lid_guide_bot_z = 6.0
+lid_guide_top_z = 20.0
 lid_guide_width = 8.0
 lid_guide_y = 0.0
-lid_guide_padding = 2.0 # pushes the board against the body
+lid_guide_padding = 2.0  # pushes the board against the body
 
 # dimensions for M3 25mm bolts
 bolt_hole_clear = 3.0
 bolt_hole_tapped = 2.5  # self-tapping into plastic
 bolt_head_dia = 6.0  # 5 plus clearance
-bolt_from_edge = 5.0
-bolt_base_dia = 10.0
+bolt_from_edge = 4.0
+bolt_base_dia = 7.0
 
 # dimensions for holes
 power_y, power_z = 45.8, 14.5
@@ -62,7 +63,7 @@ bolt1_y = bolt_from_edge - outer_rad
 bolt2_y = square_width + outer_rad - bolt_from_edge
 bolt_base1_y = (bolt_base_dia / 2.0) - outer_rad
 bolt_base2_y = square_width + outer_rad - (bolt_base_dia / 2.0)
-bolt_base_depth = depth / 2.0
+bolt_base_depth = depth * 0.66
 # rotation of bolt base code to merge into the side
 bolt_base_angle = math.degrees(math.atan2(
     bolt_base_depth, bolt_base_dia / 2.0))
@@ -238,27 +239,52 @@ lid -= u.up(bolt_z)(u.forward(bolt2_y)(u.right(depth + half_wall_width)(
 )))
 
 # lid guides
-lid += u.up(lid_guide1_z - wall_width)(u.forward(lid_guide_y)(
+# lid guide top
+lid += u.up(lid_guide_bot_z - wall_width)(u.forward(lid_guide_y)(
     u.right(depth - half_wall_width - guide_depth + hnt)(
         s.cube(size=[guide_depth, lid_guide_width, wall_width])
     )
 ))
-lid += u.up(lid_guide2_z)(u.forward(lid_guide_y)(
+# lid guide bottom
+lid += u.up(lid_guide_top_z)(u.forward(lid_guide_y)(
     u.right(depth - half_wall_width - guide_depth + hnt)(
         s.cube(size=[guide_depth, lid_guide_width, wall_width])
     )
 ))
-# lid guide padding
-lid += u.up(lid_guide1_z)(u.forward(lid_guide_y)(
+# lid guide usb side
+lid += u.up(lid_guide_bot_z - wall_width)(u.forward(lid_guide_y - wall_width)(
+    u.right(depth - half_wall_width - guide_depth + hnt)(
+        s.cube(size=[guide_depth, wall_width,
+                     lid_guide_top_z - lid_guide_bot_z + wall_width * 2])
+    )
+))
+# lid guide power side
+lid += u.up(lid_guide_bot_z - wall_width)(u.forward(lid_guide_y + board_width)(
+    u.right(depth - half_wall_width - guide_depth + hnt)(
+        s.cube(size=[guide_depth, wall_width,
+                     lid_guide_top_z - lid_guide_bot_z + wall_width * 2])
+    )
+))
+# lid guide padding top
+lid += u.up(lid_guide_bot_z)(u.forward(lid_guide_y)(
     u.right(depth - half_wall_width - lid_guide_padding + hnt)(
         s.cube(size=[lid_guide_padding, lid_guide_width, wall_width])
     )
 ))
-lid += u.up(lid_guide2_z - wall_width)(u.forward(lid_guide_y)(
+# lid guide padding bottom
+lid += u.up(lid_guide_top_z - wall_width)(u.forward(lid_guide_y)(
     u.right(depth - half_wall_width - lid_guide_padding + hnt)(
         s.cube(size=[lid_guide_padding, lid_guide_width, wall_width])
     )
 ))
+# lid guide padding bottom on power side
+lid += u.up(lid_guide_bot_z)(
+    u.forward(lid_guide_y + board_width - lid_guide_width)(
+        u.right(depth - half_wall_width - lid_guide_padding + hnt)(
+            s.cube(size=[lid_guide_padding, lid_guide_width, wall_width])
+        )
+    )
+)
 
 logo = u.right(40)(u.up(height - emboss_depth)(
     s.linear_extrude(height=emboss_depth)(
