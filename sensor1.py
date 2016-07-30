@@ -21,6 +21,7 @@ lid_guide1_z = 6.0
 lid_guide2_z = 20.0
 lid_guide_width = 8.0
 lid_guide_y = 0.0
+lid_guide_padding = 2.0 # pushes the board against the body
 
 # dimensions for M3 25mm bolts
 bolt_hole_clear = 3.0
@@ -245,6 +246,17 @@ lid += u.up(lid_guide1_z - wall_width)(u.forward(lid_guide_y)(
 lid += u.up(lid_guide2_z)(u.forward(lid_guide_y)(
     u.right(depth - half_wall_width - guide_depth + hnt)(
         s.cube(size=[guide_depth, lid_guide_width, wall_width])
+    )
+))
+# lid guide padding
+lid += u.up(lid_guide1_z)(u.forward(lid_guide_y)(
+    u.right(depth - half_wall_width - lid_guide_padding + hnt)(
+        s.cube(size=[lid_guide_padding, lid_guide_width, wall_width])
+    )
+))
+lid += u.up(lid_guide2_z - wall_width)(u.forward(lid_guide_y)(
+    u.right(depth - half_wall_width - lid_guide_padding + hnt)(
+        s.cube(size=[lid_guide_padding, lid_guide_width, wall_width])
     )
 ))
 
