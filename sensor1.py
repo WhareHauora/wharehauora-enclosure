@@ -64,10 +64,9 @@ bolt2_y = square_width + outer_rad - bolt_from_edge
 bolt_base1_y = (bolt_base_dia / 2.0) - outer_rad
 bolt_base2_y = square_width + outer_rad - (bolt_base_dia / 2.0)
 bolt_base_depth = depth * 0.66
-# rotation of bolt base code to merge into the side
+# rotation of bolt base to merge into the side
 bolt_base_angle = math.degrees(math.atan2(
     bolt_base_depth, bolt_base_dia / 2.0))
-print(bolt_base_angle)
 hnt = nt / 2.0  # half nested tolerance
 
 # body centre
